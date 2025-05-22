@@ -2642,6 +2642,8 @@ print(
         )
     )
     / len(all_reports)
+    if len(all_reports) > 0
+    else 0  # Added check for len(all_reports)
 )
 
 
@@ -2704,6 +2706,8 @@ print(
         )
     )
     / len(all_reports)
+    if len(all_reports) > 0
+    else 0  # Added check for len(all_reports)
 )
 
 
@@ -2768,6 +2772,8 @@ print(
         )
     )
     / len(all_reports)
+    if len(all_reports) > 0
+    else 0  # Added check for len(all_reports)
 )
 
 
@@ -3163,6 +3169,8 @@ print(
         )
     )
     / len(all_reports)
+    if len(all_reports) > 0
+    else 0  # Added check for len(all_reports)
 )
 
 
@@ -3224,6 +3232,8 @@ print(
         )
     )
     / len(all_reports)
+    if len(all_reports) > 0
+    else 0  # Added check for len(all_reports)
 )
 
 
@@ -3283,6 +3293,8 @@ print(
         )
     )
     / len(all_reports)
+    if len(all_reports) > 0
+    else 0  # Added check for len(all_reports)
 )
 
 
@@ -3334,6 +3346,8 @@ print(
         )
     )
     / len(all_reports)
+    if len(all_reports) > 0
+    else 0  # Added check for len(all_reports)
 )
 
 
