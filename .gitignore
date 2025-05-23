@@ -9,7 +9,6 @@ __pycache__/
 # Data is too large
 data/
 data_SAMPLE/
-tabelize/
 
 # not sure if I can show due to licensing agreements
 vocabulary_SNOMED_MEDDRA_RxNorm_ATC/

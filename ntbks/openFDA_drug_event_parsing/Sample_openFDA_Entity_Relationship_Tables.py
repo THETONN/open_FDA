@@ -566,6 +566,12 @@ try:
     )
     print("CONCEPT.csv loaded successfully.")
     concept.head()
+    print(f"Shape of concept DataFrame: {concept.shape}")  # ADDED
+    if not concept.empty:  # ADDED
+        print("Vocabulary ID counts in concept DataFrame:")  # ADDED
+        print(concept["vocabulary_id"].value_counts(dropna=False))  # ADDED
+    else:  # ADDED
+        print("Concept DataFrame is empty.")  # ADDED
 except FileNotFoundError:
     print(f"VOCABULARY FILE NOT FOUND: {concept_file_path}")
     print(
@@ -757,6 +763,14 @@ patient_reaction_df.head()
 
 
 meddra_concept = concept.query('vocabulary_id=="MedDRA"')
+print(f"Shape of meddra_concept: {meddra_concept.shape}")
+if meddra_concept.empty:
+    print(
+        "meddra_concept is EMPTY. This is likely the cause of missing MedDRA reactions."
+    )
+else:
+    print("meddra_concept head:")
+    print(meddra_concept.head())
 meddra_concept.head()
 
 
@@ -767,13 +781,14 @@ reactions = (
     patient_reaction_df.reaction_meddrapt.copy().astype(str).str.title().unique()
 )
 print(len(reactions))
-concept_names = meddra_concept.concept_name.astype(str).str.title().unique()
-print(len(concept_names))
+meddra_concept_ids = (
+    concept.query('vocabulary_id=="MedDRA"').concept_id.astype(int).unique()
+)
+len(meddra_concept_ids)  # This is not printed, but just a statement
 
-intersect_title = np.intersect1d(reactions, concept_names)
-print(len(intersect_title))
-
-print(len(intersect_title) / len(reactions))
+intersect = np.intersect1d(reactions, meddra_concept_ids)
+print(len(intersect))
+print(len(intersect) / len(reactions) if len(reactions) > 0 else 0.0)
 
 
 # In[ ]:
@@ -2174,13 +2189,27 @@ len(meddra_concept_ids)
 
 intersect = np.intersect1d(reactions, meddra_concept_ids)
 print(len(intersect))
-print(len(intersect) / len(reactions))
+print(len(intersect) / len(reactions) if len(reactions) > 0 else 0.0)
 
 
 # In[ ]:
 
 
 meddra_concept = concept.query('vocabulary_id=="MedDRA"')
+print(f"Shape of meddra_concept: {meddra_concept.shape}")
+if meddra_concept.empty:
+    print(
+        "meddra_concept is EMPTY. This is likely the cause of missing MedDRA reactions."
+    )
+else:
+    print("meddra_concept head:")
+    print(meddra_concept.head())
+meddra_concept.head()
+
+
+# In[ ]:
+
+
 meddra_concept.concept_id = meddra_concept.concept_id.astype(int)
 all_meddra_concept_ids = meddra_concept.concept_id.unique()
 
@@ -2853,7 +2882,7 @@ len(meddra_concept_ids)
 
 intersect = np.intersect1d(reactions, meddra_concept_ids)
 print(len(intersect))
-print(len(intersect) / len(reactions))
+print(len(intersect) / len(reactions) if len(reactions) > 0 else 0.0)
 
 
 # In[ ]:
