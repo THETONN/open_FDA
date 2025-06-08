@@ -320,7 +320,7 @@ def patient_formatter(df):
         aged.loc[month_reports, "patient.patientonsetage"].astype(int) / 12.0
     )
     aged.loc[week_reports, "master_age"] = (
-        aged.loc[week_reports, "patient.patientonsetage"].astype(int) / 365.0
+        aged.loc[week_reports, "patient.patientonsetage"].astype(int) / 52.0
     )
     aged.loc[day_reports, "master_age"] = (
         aged.loc[day_reports, "patient.patientonsetage"].astype(int) / 365.0
@@ -675,7 +675,7 @@ from joblib import Parallel, delayed
 # from dask import delayed, compute, persist
 # from dask.distributed import Client, LocalCluster, progress
 
-n_jobs = 4
+n_jobs = 8
 
 # if __name__=='__main__':
 t0_loop = time.time()
