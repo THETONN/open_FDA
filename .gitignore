@@ -17,6 +17,8 @@ vocabulary_various/
 
 # don't show my openFDA API credentials
 .openFDA.params
+api_key.txt
+../.api_key.txt
 
 # Mac specific
 .DS_Store
