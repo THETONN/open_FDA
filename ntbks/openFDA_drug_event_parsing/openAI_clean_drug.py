@@ -19,10 +19,13 @@ client = OpenAI(api_key=api_key)
 
 def get_clean_drug_name(drug_name):
     prompt = f"""
-    Extract the primary (generic) drug name from the following text. 
-    Respond ONLY with the drug name and nothing else.
+    You are given a raw drug name that may include combination drugs (e.g., "Amoxicillin/Clavulanic Acid").
+    Please extract and list all the **distinct active ingredients**, separated by commas.
+    Do not include brand names, dosages, routes, or forms.
+    Only return the list of active ingredients. No explanation.
 
-    Raw drug text: {drug_name}
+    Raw drug name: {drug_name}
+    Expected format: Ingredient1, Ingredient2, ...
     """
     try:
         response = client.chat.completions.create(
@@ -42,7 +45,7 @@ def extract_drug_name_from_gpt(raw_response: str) -> str:
     match = re.search(r'"([^"]+)"', raw_response)
     if match:
         return match.group(1).strip()
-    match = re.search(r'คือ\s+([A-Za-z\- ]+)', raw_response)
+    match = re.search(r'\s+([A-Za-z\- ]+)', raw_response)
     if match:
         return match.group(1).strip()
     return raw_response.strip()
