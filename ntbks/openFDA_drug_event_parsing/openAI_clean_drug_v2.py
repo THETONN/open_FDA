@@ -30,12 +30,14 @@ def strip_noise(txt: str) -> str:
     return re.sub(r"\s{2,}", " ", t).strip().lower()
 
 SYSTEM_PROMPT = textwrap.dedent("""\
-    You receive a JSON array of up to 10 raw drug product strings (never duplicates).
-    Return a JSON array of the same length, in the same order.
-    Each element must be canonical, lowercase INN/USAN ingredient names (comma-separated if multiple).
-    If you cannot normalise, return an empty string "" exactly.
-    Strict JSON. No comments.
+    You receive a JSON array of up to 10 unique drug product names.
+    For each, return ONLY the canonical, lowercase INN/USAN name if it is a small molecule drug.
+    If it is not a small molecule (e.g. protein, peptide, vaccine, antibody, biological, supplement, vitamin, device, or unknown), return an empty string "".
+    The output must be a JSON array in the same order as input.
+    Strict JSON only. No commentary.
 """)
+
+
 
 @retry(
     reraise=True,
